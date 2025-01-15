@@ -132,27 +132,6 @@ public class GameController {
     }
 
     /**
-     * Aktualisiert die Belohnungen basierend auf der Spielhistorie.
-     *
-     * @param finalReward Die finale Belohnung.
-     *//*
-    private void propagateRewards(double finalReward) {
-        double reward = finalReward;
-
-        // History rückwärts durchgehen
-        for (int i = stateHistory.size() - 1; i >= 0; i--) {
-            String state = stateHistory.get(i);
-            int move = moveHistory.get(i);
-
-            // Q-Werte aktualisieren
-            ai.updateQValue(state, move, reward);
-
-            // Diskontiere die Belohnung
-            reward *= ai.getDiscountFactor();
-        }
-    }*/
-
-    /**
      * Beendet das Spiel und speichert die Q-Tabelle.
      */
     private void endGame() {

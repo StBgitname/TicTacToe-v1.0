@@ -2,6 +2,7 @@ package view;
 
 import controller.GameController;
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -25,6 +26,7 @@ public class GameViewGUI extends Application {
 
         // Hauptlayout
         VBox root = new VBox();     // Vertical Box
+        root.setPadding(new javafx.geometry.Insets(10, 10, 10, 10));
         root.setSpacing(10);        // vertikaler Abstand der Elemente
 
         // Spielfeld (3x3 Grid)
@@ -34,6 +36,7 @@ public class GameViewGUI extends Application {
             for (int j = 0; j < 3; j++) {
                 Button button = new Button();
                 button.setPrefSize(100, 100); // Größe des Buttons
+                button.setStyle("-fx-font-size: 25px; -fx-font-weight: bold;");
                 int row = i;
                 int col = j;
                 button.setOnAction(e -> handleButtonClick(row, col)); // Ereignis-Handler mit Zeile und Spalte
@@ -49,7 +52,7 @@ public class GameViewGUI extends Application {
         root.getChildren().addAll(grid, statusLabel);
 
         // Szene und Bühne
-        Scene scene = new Scene(root, 350, 400);
+        Scene scene = new Scene(root, 320, 380);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Tic Tac Toe");
         primaryStage.show();
@@ -67,6 +70,16 @@ public class GameViewGUI extends Application {
         char[][] grid = board.getBoard();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
+
+                // Spielerfarbe setzen
+                if (grid[i][j] == 'X') {
+                    gridButtons[i][j].setStyle("-fx-font-size: 25px; -fx-font-weight: bold; -fx-text-fill: red;");
+                }
+                if (grid[i][j] == 'O') {
+                    gridButtons[i][j].setStyle("-fx-font-size: 25px; -fx-font-weight: bold; -fx-text-fill: blue;");
+                }
+
+                // Button-Beschriftung
 //                gridButtons[i][j].setText(grid[i][j] == ' ' ? "" : String.valueOf(grid[i][j]));
                 gridButtons[i][j].setText(String.valueOf(grid[i][j]));
                 gridButtons[i][j].setDisable(grid[i][j] != ' ');   // Deaktivieren, wenn das Feld nicht leer ist
