@@ -2,9 +2,7 @@ package ai;
 
 import utility.QTableHandler;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 
 //  Implementiert eine einfache KI für Tic Tac Toe mit Reinforcement Learning.
@@ -38,11 +36,22 @@ public class TicTacToeAI {
             return random.nextInt(9); // Zufälliger Zug
         } else {
             double[] qValues = qTable.get(state);
-            int bestMove = 0;
-            // Zug mit dem höchsten Q-Wert ermitteln
-            for (int i = 1; i < qValues.length; i++) {
-                if (qValues[i] > qValues[bestMove]) {
-                    bestMove = i;
+            List<Integer> validMoves = new Vector<>();
+
+            // alle gültigen Züge sammeln
+            for (int i = 0; i < qValues.length; i++) {
+                if (state.charAt(i) == ' ') {
+                    validMoves.add(i);
+                }
+            }
+
+            int bestMove = validMoves.getFirst();
+
+            // gültigen Zug mit dem höchsten Q-Wert ermitteln
+            for (int i = 0; i < validMoves.size(); i++) {
+
+                if (qValues[validMoves.get(i)] > qValues[bestMove]) {
+                    bestMove = validMoves.get(i);
                 }
             }
             return bestMove;
