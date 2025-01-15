@@ -3,6 +3,7 @@ package ai;
 import utility.QTableHandler;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 
@@ -64,7 +65,26 @@ public class TicTacToeAI {
         qValues[move] += learningRate * (reward - qValues[move]);
     }
 
+    /**
+     * Aktualisiert die Belohnungen basierend auf der Spielhistorie.
+     *
+     * @param finalReward Die finale Belohnung.
+     */
+    public void propagateRewards(double finalReward, List<String> stateHistory, List<Integer> moveHistory) {
+        double reward = finalReward;
 
+        // History rückwärts durchgehen
+        for (int i = stateHistory.size() - 1; i >= 0; i--) {
+            String state = stateHistory.get(i);
+            int move = moveHistory.get(i);
+
+            // Q-Werte aktualisieren
+            updateQValue(state, move, reward);
+
+            // Diskontiere die Belohnung
+            reward *= discountFactor;
+        }
+    }
 
 
     public void loadQTable(String fileName) {

@@ -99,7 +99,7 @@ public class GameController {
         // Prüfen, ob der aktuelle Spieler gewonnen hat
         if (board.checkWin(currentPlayer.getSymbol())) {
             view.displayMessage("Spieler " + currentPlayer.getName() + " hat gewonnen!");
-            propagateRewards(currentPlayer == humanPlayer ? -1.0 : 1.0); // Belohnung für die KI
+            ai.propagateRewards(currentPlayer == humanPlayer ? -1.0 : 1.0, stateHistory, moveHistory); // Belohnung für die KI
             endGame();
             return;
         }
@@ -107,7 +107,7 @@ public class GameController {
         // Prüfen, ob das Spielfeld voll ist (Unentschieden)
         if (board.isFull()) {
             view.displayMessage("Unentschieden! Niemand gewinnt.");
-            propagateRewards(0.1); // leichte Belohnung
+            ai.propagateRewards(0.2, stateHistory, moveHistory); // leichte Belohnung
             endGame();
             return;
         }
@@ -135,7 +135,7 @@ public class GameController {
      * Aktualisiert die Belohnungen basierend auf der Spielhistorie.
      *
      * @param finalReward Die finale Belohnung.
-     */
+     *//*
     private void propagateRewards(double finalReward) {
         double reward = finalReward;
 
@@ -150,7 +150,7 @@ public class GameController {
             // Diskontiere die Belohnung
             reward *= ai.getDiscountFactor();
         }
-    }
+    }*/
 
     /**
      * Beendet das Spiel und speichert die Q-Tabelle.
