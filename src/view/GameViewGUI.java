@@ -37,7 +37,7 @@ public class GameViewGUI extends Application {
             for (int j = 0; j < 3; j++) {
                 Button button = new Button();
                 button.setPrefSize(100, 100); // Größe des Buttons
-                button.setStyle("-fx-font-size: 25px; -fx-font-weight: bold;");
+//                button.setStyle("-fx-font-size: 25px; -fx-font-weight: bold;");
                 int row = i;
                 int col = j;
                 button.setOnAction(e -> gameController.handlePlayerMove(row, col)); // Ereignis-Handler mit Zeile und Spalte

@@ -172,7 +172,7 @@ public class GameController {
 
         int move;
 
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 1500000; i++) {
 
             startNewGame();
             do {
@@ -188,8 +188,8 @@ public class GameController {
 
         view.displayMessage("Trainer: " + wins[0] + ", AI: " + wins[1] + ", Unentschieden: " + wins[2]);
         wins[0] = 0;
-        wins[1] = 0;
         wins[2] = 0;
+        wins[1] = 0;
     }
 
     public void startNewGame() {
