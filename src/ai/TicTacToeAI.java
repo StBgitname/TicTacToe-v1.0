@@ -11,8 +11,8 @@ public class TicTacToeAI {
     private HashMap<String, double[]> qTable; // Q-Tabelle zur Speicherung von Boardzuständen und Q-Werten
     private Random random;
     private double learningRate = 0.1; // Lernrate
-    private double discountFactor = 0.8; // Diskontierungsfaktor
-    private double explorationRate = 0.1; // Wahrscheinlichkeit für Exploration
+    private double discountFactor = 0.9; // Diskontierungsfaktor
+    private double explorationRate = 0; // Wahrscheinlichkeit für Exploration
 
 
     // Konstruktor, der die KI initialisiert.

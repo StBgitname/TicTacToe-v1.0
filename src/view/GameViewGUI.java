@@ -19,6 +19,7 @@ public class GameViewGUI extends Application {
     private Label statusLabel; // Statusanzeige
     private Button[][] gridButtons; // Spielfeld-Buttons
     private Button trainButton;  // Button zum AI-Training
+    private Button restartButton;  // Spiel neu starten
 
     @Override
     public void start(Stage primaryStage) {
@@ -51,13 +52,15 @@ public class GameViewGUI extends Application {
         // Trainingsbutton
         trainButton = new Button("AI-Training (10000 Spiele)");
         trainButton.setOnAction(event -> gameController.trainAI());
-
+        // restart Button
+        restartButton = new Button("Neues Spiel");
+        restartButton.setOnAction(event -> gameController.startNewGame());
 
         // Layout zusammenfügen
-        root.getChildren().addAll(grid, statusLabel, trainButton);
+        root.getChildren().addAll(grid, statusLabel, restartButton, trainButton);
 
         // Szene und Bühne
-        Scene scene = new Scene(root, 320, 420);
+        Scene scene = new Scene(root, 320, 430);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Tic Tac Toe");
         primaryStage.show();

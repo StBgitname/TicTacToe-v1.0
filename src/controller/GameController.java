@@ -171,7 +171,7 @@ public class GameController {
 
         int move;
 
-        for (int i = 0; i <= 10000; i++) {
+        for (int i = 0; i <= 1000; i++) {
             do {
                 move = trainer.getMove(board.getState());
                 int row = move / 3;
@@ -182,18 +182,24 @@ public class GameController {
                 performAIMove();
             } while (!end);
 
-            // alle Werte auf Anfang
-            end = false;
-            board.resetBoard();
-            currentPlayer = humanPlayer;
-            stateHistory.clear();
-            moveHistory.clear();
+            startNewGame();
         }
 
         view.displayMessage("Trainer: " + wins[0] + ", AI: " + wins[1] + ", Unentschieden: " + wins[2]);
         wins[0] = 0;
         wins[1] = 0;
         wins[2] = 0;
+    }
+
+    public void startNewGame() {
+
+        // alle Werte auf Anfang
+        board.resetBoard();
+        currentPlayer = humanPlayer;
+        stateHistory.clear();
+        moveHistory.clear();
+        end = false;
+        view.renderBoard(board);
     }
 
     /**

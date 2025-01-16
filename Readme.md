@@ -15,4 +15,3 @@ This is a small project to get acquainted with the Q-Learning algorithm.
 
 - compare Board states to account for mirrored and rotated states
   (This would greatly reduce the size of the stored data and lead to more efficient learning)
-- add new game button
