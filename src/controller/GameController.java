@@ -1,5 +1,7 @@
 package controller;
 
+import ai.AdvancedTrainingAI;
+import ai.RandomTrainingAI;
 import ai.TrainingAI;
 import model.Board;
 import model.Player;
@@ -8,6 +10,7 @@ import ai.TicTacToeAI;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Steuert den Spielablauf von Tic Tac Toe.
@@ -38,12 +41,18 @@ public class GameController {
         this.aiPlayer = new Player("AI", 'O');
         this.currentPlayer = humanPlayer; // Der Mensch beginnt immer.
         this.ai = new TicTacToeAI();
-        this.trainer = new TrainingAI();
+        this.trainer = new RandomTrainingAI();
+//        this.trainer = new AdvancedTrainingAI();
         this.stateHistory = new ArrayList<>();
         this.moveHistory = new ArrayList<>();
 
         // Laden der Q-Tabelle
         ai.loadQTable("qtable.csv");
+        System.out.println("Trainer: " + trainer.getClass().getName());
+        if (trainer.getClass().getName().equals("ai.AdvancedTrainingAI")){
+            trainer.loadQTable("qtable.csv");
+        }
+
     }
 
     /**
@@ -101,6 +110,11 @@ public class GameController {
     private void processMove() {
         // Spielfeld in der GUI aktualisieren
         view.renderBoard(board);
+        /*try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }*/
 
         // Prüfen, ob der aktuelle Spieler gewonnen hat
         if (board.checkWin(currentPlayer.getSymbol())) {

@@ -40,7 +40,7 @@ public class GameViewGUI extends Application {
                 button.setStyle("-fx-font-size: 25px; -fx-font-weight: bold;");
                 int row = i;
                 int col = j;
-                button.setOnAction(e -> handleButtonClick(row, col)); // Ereignis-Handler mit Zeile und Spalte
+                button.setOnAction(e -> gameController.handlePlayerMove(row, col)); // Ereignis-Handler mit Zeile und Spalte
                 grid.add(button, j, i);
                 gridButtons[i][j] = button;
             }
@@ -99,17 +99,6 @@ public class GameViewGUI extends Application {
      */
     public void displayMessage(String message) {
         statusLabel.setText(message);
-    }
-
-    /**
-     * Behandelt Klicks auf die Spielfelder.
-     * Informiert den GameController über den Klick.
-     *
-     * @param row Die Reihe des geklickten Feldes.
-     * @param col Die Spalte des geklickten Feldes.
-     */
-    private void handleButtonClick(int row, int col) {
-        gameController.handlePlayerMove(row, col); // Controller übernimmt die Spiellogik
     }
 
     /**

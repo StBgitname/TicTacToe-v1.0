@@ -8,7 +8,8 @@ This is a small project to get acquainted with the Q-Learning algorithm.
 - GUI
 - A human player can play against an AI agent.
 - after each game, the AI stores the new Q-Values in a csv-file
-- training of the AI by playing multiple games against an automated opponent (currently making only random moves)
+- training of the AI by playing multiple games against an automated opponent
+- automated opponent can be random or advanced (currently using the same Q-values as the learning AI)
 
 ## ToDo
 
