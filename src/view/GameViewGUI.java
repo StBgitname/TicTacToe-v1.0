@@ -49,7 +49,7 @@ public class GameViewGUI extends Application {
         // Statusanzeige
         statusLabel = new Label("Willkommen zu Tic Tac Toe!");
         // Trainingsbutton
-        trainButton = new Button("AI-Training (100 Spiele)");
+        trainButton = new Button("AI-Training (10000 Spiele)");
         trainButton.setOnAction(event -> gameController.trainAI());
 
 
