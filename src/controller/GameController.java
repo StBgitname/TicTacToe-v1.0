@@ -110,6 +110,7 @@ public class GameController {
     private void processMove() {
         // Spielfeld in der GUI aktualisieren
         view.renderBoard(board);
+
         /*try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
@@ -171,7 +172,9 @@ public class GameController {
 
         int move;
 
-        for (int i = 0; i <= 1000; i++) {
+        for (int i = 0; i < 1000; i++) {
+
+            startNewGame();
             do {
                 move = trainer.getMove(board.getState());
                 int row = move / 3;
@@ -181,8 +184,6 @@ public class GameController {
                 if(end) break;
                 performAIMove();
             } while (!end);
-
-            startNewGame();
         }
 
         view.displayMessage("Trainer: " + wins[0] + ", AI: " + wins[1] + ", Unentschieden: " + wins[2]);
