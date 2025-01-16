@@ -19,6 +19,15 @@ public class Board {
         }
     }
 
+    public void resetBoard() {
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                board[i][j] = ' '; // Jede Zelle wird als leer (' ') gesetzt.
+            }
+        }
+    }
+
     /**
      * Führt einen Zug auf dem Spielfeld aus.
      *

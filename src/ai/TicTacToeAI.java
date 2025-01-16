@@ -12,7 +12,7 @@ public class TicTacToeAI {
     private Random random;
     private double learningRate = 0.1; // Lernrate
     private double discountFactor = 0.8; // Diskontierungsfaktor
-    private double explorationRate = 0.1; // Wahrscheinlichkeit für Exploration
+    private double explorationRate = 0.2; // Wahrscheinlichkeit für Exploration
 
 
     // Konstruktor, der die KI initialisiert.

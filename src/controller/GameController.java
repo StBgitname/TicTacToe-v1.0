@@ -1,5 +1,6 @@
 package controller;
 
+import ai.TrainingAI;
 import model.Board;
 import model.Player;
 import view.GameViewGUI;
@@ -18,9 +19,12 @@ public class GameController {
     private Player aiPlayer; // Spieler: KI
     private GameViewGUI view; // Verbindung zur GUI
     private TicTacToeAI ai; // KI-Logik
+    private TrainingAI trainer;  // Trainings-KI
     private List<String> stateHistory;  // Liste der Spielfeldzustände eines Spiels
     private List<Integer> moveHistory; // Liste der KI-Züge eines Spiels
     private Player currentPlayer; // Aktueller Spieler ('X' oder 'O')
+    private boolean end = false;
+    private int[] wins = new int[3];
 
     /**
      * Konstruktor, der die GUI-Instanz entgegennimmt.
@@ -34,6 +38,7 @@ public class GameController {
         this.aiPlayer = new Player("AI", 'O');
         this.currentPlayer = humanPlayer; // Der Mensch beginnt immer.
         this.ai = new TicTacToeAI();
+        this.trainer = new TrainingAI();
         this.stateHistory = new ArrayList<>();
         this.moveHistory = new ArrayList<>();
 
@@ -65,6 +70,7 @@ public class GameController {
      * Wird vom `processMove()` aufgerufen, wenn die KI am Zug ist.
      */
     private void performAIMove() {
+
         // Zustand des Spielfelds abrufen
         String state = board.getState();
         boolean legalMove;
@@ -99,6 +105,7 @@ public class GameController {
         // Prüfen, ob der aktuelle Spieler gewonnen hat
         if (board.checkWin(currentPlayer.getSymbol())) {
             view.displayMessage("Spieler " + currentPlayer.getName() + " hat gewonnen!");
+            wins[currentPlayer.getSymbol() == 'X' ? 0 : 1]++;
             ai.propagateRewards(currentPlayer == humanPlayer ? -1.0 : 1.0, stateHistory, moveHistory); // Belohnung für die KI
             endGame();
             return;
@@ -107,6 +114,7 @@ public class GameController {
         // Prüfen, ob das Spielfeld voll ist (Unentschieden)
         if (board.isFull()) {
             view.displayMessage("Unentschieden! Niemand gewinnt.");
+            wins[2]++;
             ai.propagateRewards(0.2, stateHistory, moveHistory); // leichte Belohnung
             endGame();
             return;
@@ -136,12 +144,42 @@ public class GameController {
      */
     private void endGame() {
 //        view.displayMessage("Das Spiel ist beendet. Danke fürs Spielen!");
+        end = true;
 
         // Alle Spielfelder in der GUI deaktivieren
         view.disableAllButtons();
 
         // Q-Tabelle speichern (falls verwendet)
         ai.saveQTable("qtable.csv");
+    }
+
+    public void trainAI() {
+
+        int move;
+
+        for (int i = 0; i <= 100; i++) {
+            do {
+                move = trainer.getMove(board.getState());
+                int row = move / 3;
+                int col = move % 3;
+
+                handlePlayerMove(row, col);
+                if(end) break;
+                performAIMove();
+            } while (!end);
+
+            // alle Werte auf Anfang
+            end = false;
+            board.resetBoard();
+            currentPlayer = humanPlayer;
+            stateHistory.clear();
+            moveHistory.clear();
+        }
+
+        view.displayMessage("Trainer: " + wins[0] + ", AI: " + wins[1] + ", Unentschieden: " + wins[2]);
+        wins[0] = 0;
+        wins[1] = 0;
+        wins[2] = 0;
     }
 
     /**

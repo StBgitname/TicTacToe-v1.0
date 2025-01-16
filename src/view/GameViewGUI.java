@@ -18,6 +18,7 @@ public class GameViewGUI extends Application {
     private GameController gameController; // Verbindung zu GameController
     private Label statusLabel; // Statusanzeige
     private Button[][] gridButtons; // Spielfeld-Buttons
+    private Button trainButton;  // Button zum AI-Training
 
     @Override
     public void start(Stage primaryStage) {
@@ -47,12 +48,16 @@ public class GameViewGUI extends Application {
 
         // Statusanzeige
         statusLabel = new Label("Willkommen zu Tic Tac Toe!");
+        // Trainingsbutton
+        trainButton = new Button("AI-Training (100 Spiele)");
+        trainButton.setOnAction(event -> gameController.trainAI());
+
 
         // Layout zusammenfügen
-        root.getChildren().addAll(grid, statusLabel);
+        root.getChildren().addAll(grid, statusLabel, trainButton);
 
         // Szene und Bühne
-        Scene scene = new Scene(root, 320, 380);
+        Scene scene = new Scene(root, 320, 420);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Tic Tac Toe");
         primaryStage.show();
