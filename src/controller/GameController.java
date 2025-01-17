@@ -11,6 +11,7 @@ import ai.TicTacToeAI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.function.ToDoubleBiFunction;
 
 /**
  * Steuert den Spielablauf von Tic Tac Toe.
@@ -41,6 +42,8 @@ public class GameController {
         this.aiPlayer = new Player("AI", 'O');
         this.currentPlayer = humanPlayer; // Der Mensch beginnt immer.
         this.ai = new TicTacToeAI();
+        //TODO
+        // Auswahl der Trainings-AI über GUI
         this.trainer = new RandomTrainingAI();
 //        this.trainer = new AdvancedTrainingAI();
         this.stateHistory = new ArrayList<>();

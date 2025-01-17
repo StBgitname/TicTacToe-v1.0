@@ -12,6 +12,7 @@ public class RandomTrainingAI implements TrainingAI{
     }
 
     // Trainings-AI liefert zufälligen Zug
+    @Override
     public int getMove(String state) {
 
         int move;

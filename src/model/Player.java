@@ -19,20 +19,10 @@ public class Player {
         this.symbol = symbol;
     }
 
-    /**
-     * Gibt den Namen des Spielers zurück.
-     *
-     * @return Der Name des Spielers.
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * Gibt das Symbol des Spielers zurück.
-     *
-     * @return Das Symbol des Spielers.
-     */
     public char getSymbol() {
         return symbol;
     }
