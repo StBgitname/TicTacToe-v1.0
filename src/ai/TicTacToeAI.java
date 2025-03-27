@@ -11,7 +11,7 @@ public class TicTacToeAI {
     private Random random;
     private double learningRate = 0.2; // Lernrate
     private double discountFactor = 0.9; // Diskontierungsfaktor
-    private double explorationRate = 0.05; // Wahrscheinlichkeit für Exploration
+    private double explorationRate = 0.1; // Wahrscheinlichkeit für Exploration
 
 
     // Konstruktor, der die KI initialisiert.
@@ -47,10 +47,10 @@ public class TicTacToeAI {
             int bestMove = validMoves.getFirst();
 
             // gültigen Zug mit dem höchsten Q-Wert ermitteln
-            for (int i = 0; i < validMoves.size(); i++) {
+            for (Integer validMove : validMoves) {
 
-                if (qValues[validMoves.get(i)] > qValues[bestMove]) {
-                    bestMove = validMoves.get(i);
+                if (qValues[validMove] > qValues[bestMove]) {
+                    bestMove = validMove;
                 }
             }
             return bestMove;

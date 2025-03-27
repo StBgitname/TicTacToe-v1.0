@@ -1,12 +1,9 @@
 package controller;
 
-import ai.AdvancedTrainingAI;
-import ai.RandomTrainingAI;
-import ai.TrainingAI;
+import ai.*;
 import model.Board;
 import model.Player;
 import view.GameViewGUI;
-import ai.TicTacToeAI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +41,11 @@ public class GameController {
         this.ai = new TicTacToeAI();
         //TODO
         // Auswahl der Trainings-AI über GUI
-        this.trainer = new RandomTrainingAI();
-//        this.trainer = new AdvancedTrainingAI();
+
+        //this.trainer = new RandomTrainingAI();
+        //this.trainer = new AdvancedTrainingAI();
+        this.trainer = new PerfectTrainingAI('O', 'X');
+
         this.stateHistory = new ArrayList<>();
         this.moveHistory = new ArrayList<>();
 
@@ -91,6 +91,7 @@ public class GameController {
         do {
             // KI berechnet ihren nächsten Zug
             move = ai.getMove(state);
+            //move = trainer.getMove(state);   //Test, um gegen TrainingsAI zu spielen
             int row = move / 3;
             int col = move % 3;
 
