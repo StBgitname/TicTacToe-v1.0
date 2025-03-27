@@ -44,7 +44,7 @@ public class GameController {
 
         //this.trainer = new RandomTrainingAI();
         //this.trainer = new AdvancedTrainingAI();
-        this.trainer = new PerfectTrainingAI('O', 'X');
+        this.trainer = new PerfectTrainingAI('X', 'O');
 
         this.stateHistory = new ArrayList<>();
         this.moveHistory = new ArrayList<>();
@@ -103,6 +103,7 @@ public class GameController {
         // Speichern des Zustands und des Zuges
         stateHistory.add(state);
         moveHistory.add(move);
+        //System.out.println("AI move: " + move);
 
         // Spielfeld in der GUI aktualisieren
         processMove();
@@ -170,23 +171,27 @@ public class GameController {
 
         // Q-Tabelle speichern (falls verwendet)
         ai.saveQTable("qtable.csv");
+
+        //System.out.println("moveHistory: " + moveHistory);
+        //System.out.println("stateHistory: " + stateHistory);
     }
 
     public void trainAI() {
 
         int move;
 
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 1000; i++) {
 
             startNewGame();
             do {
                 move = trainer.getMove(board.getState());
+                //System.out.println("Trainer Move: " + move);
                 int row = move / 3;
                 int col = move % 3;
 
                 handlePlayerMove(row, col);
-                if(end) break;
-                performAIMove();
+                // performAIMove() wird automatisch in processMove() aufgerufen
+
             } while (!end);
         }
 
