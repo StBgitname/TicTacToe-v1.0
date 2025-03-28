@@ -176,11 +176,11 @@ public class GameController {
         //System.out.println("stateHistory: " + stateHistory);
     }
 
-    public void trainAI() {
+    public void trainAI(int numGames) {
 
         int move;
 
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < numGames; i++) {
 
             startNewGame();
             do {

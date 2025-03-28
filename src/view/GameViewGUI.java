@@ -5,7 +5,9 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Board;
@@ -19,6 +21,7 @@ public class GameViewGUI extends Application {
     private Button[][] gridButtons; // Spielfeld-Buttons
     private Button trainButton;  // Button zum AI-Training
     private Button restartButton;  // Spiel neu starten
+    private TextField trainingGamesField; // Textfeld für die Anzahl der Trainingsspiele
 
     @Override
     public void start(Stage primaryStage) {
@@ -48,15 +51,32 @@ public class GameViewGUI extends Application {
 
         // Statusanzeige
         statusLabel = new Label("Willkommen zu Tic Tac Toe!");
+        // Textfeld für die Anzahl der Trainingsspiele
+        trainingGamesField = new TextField();
+        trainingGamesField.setPromptText("Anzahl der Spiele");
+        // input filter für das Textfeld (nur positive ganze Zahlen)
+        trainingGamesField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*") || newValue.equals("0")) {
+                trainingGamesField.setText(oldValue);
+            }
+        });
         // Trainingsbutton
-        trainButton = new Button("AI-Training (10000 Spiele)");
-        trainButton.setOnAction(event -> gameController.trainAI());
+        trainButton = new Button("AI-Training");
+        trainButton.setOnAction(event -> {
+            String input = trainingGamesField.getText();
+            int numGames = input.isEmpty() ? 100 : Integer.parseInt(input);  // Standardwert: 100 Spiele
+            gameController.trainAI(numGames);
+        });
+
+        // HBox for trainButton and trainingGamesField
+        HBox trainingBox = new HBox(10, trainButton, trainingGamesField);
+
         // restart Button
         restartButton = new Button("Neues Spiel");
         restartButton.setOnAction(event -> gameController.startNewGame());
 
         // Layout zusammenfügen
-        root.getChildren().addAll(grid, statusLabel, restartButton, trainButton);
+        root.getChildren().addAll(grid, statusLabel, restartButton, trainingBox);
 
         // Szene und Bühne
         Scene scene = new Scene(root, 320, 430);
