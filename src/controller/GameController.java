@@ -42,9 +42,9 @@ public class GameController {
         //TODO
         // Auswahl der Trainings-AI über GUI
 
-        //this.trainer = new RandomTrainingAI();
+        this.trainer = new RandomTrainingAI();
         //this.trainer = new AdvancedTrainingAI();
-        this.trainer = new PerfectTrainingAI('X', 'O');
+        //this.trainer = new PerfectTrainingAI('X', 'O');
 
         this.stateHistory = new ArrayList<>();
         this.moveHistory = new ArrayList<>();
@@ -180,7 +180,7 @@ public class GameController {
 
         int move;
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10000; i++) {
 
             startNewGame();
             do {

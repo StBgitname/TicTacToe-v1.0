@@ -6,11 +6,13 @@ public class PerfectTrainingAI implements TrainingAI {
 
     private char aiPlayer;
     private char opponentPlayer;
+    private Random random; // Added random for generating random moves
 
     // Constructor to set the symbols for the players
     public PerfectTrainingAI(char aiPlayer, char opponentPlayer) {
         this.aiPlayer = aiPlayer;
         this.opponentPlayer = opponentPlayer;
+        this.random = new Random();
     }
 
     // Returns the optimal move based on the current state of the board
@@ -26,6 +28,13 @@ public class PerfectTrainingAI implements TrainingAI {
 
     // Finds the best move for the AI
     private int findBestMove(String state) {
+
+        // Check if it's the first move
+        if (state.chars().filter(ch -> ch == ' ').count() == 9) {
+            // Choose a random move for the first move
+            return random.nextInt(9); // Random first move
+        }
+
         int bestVal = Integer.MIN_VALUE;
         int bestMove = -1;
 
