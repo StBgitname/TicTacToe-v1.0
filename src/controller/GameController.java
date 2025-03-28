@@ -3,9 +3,11 @@ package controller;
 import ai.*;
 import model.Board;
 import model.Player;
+import utility.QTableHandler;
 import view.GameViewGUI;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.ToDoubleBiFunction;
@@ -227,5 +229,14 @@ public class GameController {
      */
     public Board getBoard() {
         return board;
+    }
+
+    public void clearLearningProgress() {
+        try {
+            QTableHandler.saveQTable(new HashMap<>(), "qtable.csv");
+            view.displayMessage("Lernfortschritt erfolgreich gelöscht.");
+        } catch (Exception e) {
+            view.displayMessage("Fehler beim Löschen des Lernfortschritts: " + e.getMessage());
+        }
     }
 }

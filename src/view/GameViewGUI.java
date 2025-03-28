@@ -148,6 +148,13 @@ public class GameViewGUI extends Application {
         // Standardmäßig den zufälligen Gegner auswählen
         randomOpponentButton.setSelected(true);
 
+        // Trennlinie
+        Separator separator3 = new Separator();
+
+        // Button zum Löschen des Lernfortschritts
+        Button clearLearningButton = new Button("Lernfortschritt löschen");
+        clearLearningButton.setOnAction(event -> gameController.clearLearningProgress());
+
         // Layout zusammenfügen
         root.getChildren().addAll(
                 grid,
@@ -160,10 +167,12 @@ public class GameViewGUI extends Application {
                 separator2,
                 trainingBox,
                 randomOpponentButton,
-                perfectOpponentButton);
+                perfectOpponentButton,
+                separator3,
+                clearLearningButton);
 
         // Szene und Bühne
-        Scene scene = new Scene(root, 320, 610);
+        Scene scene = new Scene(root, 320, 650);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Tic Tac Toe");
         primaryStage.show();
