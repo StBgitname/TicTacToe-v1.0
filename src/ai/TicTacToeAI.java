@@ -9,15 +9,18 @@ public class TicTacToeAI {
 
     private HashMap<String, double[]> qTable; // Q-Tabelle zur Speicherung von Boardzuständen und Q-Werten
     private Random random;
-    private double learningRate = 0.2; // Lernrate
-    private double discountFactor = 0.9; // Diskontierungsfaktor
-    private double explorationRate = 0; // Wahrscheinlichkeit für Exploration
+    private double learningRate; // Lernrate
+    private double discountFactor; // Diskontierungsfaktor
+    private double explorationRate; // Wahrscheinlichkeit für Exploration
 
 
     // Konstruktor, der die KI initialisiert.
-    public TicTacToeAI() {
+    public TicTacToeAI(double learningRate, double discountFactor, double explorationRate) {
         qTable = new HashMap<>();
         random = new Random();
+        this.learningRate = learningRate;
+        this.discountFactor = discountFactor;
+        this.explorationRate = explorationRate;
     }
 
     /**
@@ -103,7 +106,16 @@ public class TicTacToeAI {
         QTableHandler.saveQTable(qTable, fileName);
     }
 
-    public double getDiscountFactor() {
-        return discountFactor;
+    // Setter für die Parameter
+    public void setLearningRate(double learningRate) {
+        this.learningRate = learningRate;
+    }
+
+    public void setDiscountFactor(double discountFactor) {
+        this.discountFactor = discountFactor;
+    }
+
+    public void setExplorationRate(double explorationRate) {
+        this.explorationRate = explorationRate;
     }
 }

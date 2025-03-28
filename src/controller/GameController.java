@@ -38,24 +38,16 @@ public class GameController {
         this.humanPlayer = new Player("Human", 'X');
         this.aiPlayer = new Player("AI", 'O');
         this.currentPlayer = humanPlayer; // Der Mensch beginnt immer.
-        this.ai = new TicTacToeAI();
-        //TODO
-        // Auswahl der Trainings-AI über GUI
-
-        this.trainer = new RandomTrainingAI();
-        //this.trainer = new AdvancedTrainingAI();
-        //this.trainer = new PerfectTrainingAI('X', 'O');
-
+        this.ai = new TicTacToeAI(
+                Double.parseDouble(view.getLearningRateField().getText()),
+                Double.parseDouble(view.getDiscountFactorField().getText()),
+                Double.parseDouble(view.getExplorationRateField().getText())
+        );
         this.stateHistory = new ArrayList<>();
         this.moveHistory = new ArrayList<>();
 
         // Laden der Q-Tabelle
         ai.loadQTable("qtable.csv");
-        System.out.println("Trainer: " + trainer.getClass().getName());
-        if (trainer.getClass().getName().equals("ai.AdvancedTrainingAI")){
-            trainer.loadQTable("qtable.csv");
-        }
-
     }
 
     /**
@@ -178,6 +170,17 @@ public class GameController {
 
     public void trainAI(int numGames) {
 
+        // Auswahl der Trainings-AI basierend auf der Radiobutton-Auswahl
+        if (view.getRandomOpponentButton().isSelected()) {
+            this.trainer = new RandomTrainingAI();
+        } else {
+            this.trainer = new PerfectTrainingAI('X', 'O');
+        }
+        //this.trainer = new AdvancedTrainingAI();
+        //if (trainer.getClass().getName().equals("ai.AdvancedTrainingAI")){
+        //    trainer.loadQTable("qtable.csv");
+        //}
+
         int move;
 
         for (int i = 0; i < numGames; i++) {
@@ -202,6 +205,11 @@ public class GameController {
     }
 
     public void startNewGame() {
+
+        // Aktuelle Werte aus den Textfeldern abrufen
+        ai.setLearningRate(Double.parseDouble(view.getLearningRateField().getText()));
+        ai.setDiscountFactor(Double.parseDouble(view.getDiscountFactorField().getText()));
+        ai.setExplorationRate(Double.parseDouble(view.getExplorationRateField().getText()));
 
         // alle Werte auf Anfang
         board.resetBoard();
