@@ -5,7 +5,7 @@ import java.util.*;
 public class Transformations {
 
     /**
-     * Führt eine Rotation des Tic Tac Toe Spiels um 90 Grad durch.
+     * Führt eine Rotation des Tic Tac Toe Spiels um 90 Grad durch. (gegen den Uhrzeigersinn)
      *
      * @param state Der aktuelle Zustand des Spielfelds als String.
      * @return Der Zustand nach der Rotation.
@@ -119,5 +119,58 @@ public class Transformations {
 
         // Den lexikographisch kleinsten Zustand zurückgeben
         return transformations.stream().min(String::compareTo).orElse(state);
+    }
+
+    // Transformation des canonicalState zurück zum ursprünglichen state
+    public int transformToOriginalState(String canonicalState, String originalState, int bestMove) {
+        //TODO: Überprüfen!!!!!!
+        while (!canonicalState.equals(originalState)) {
+            // Rotation prüfen
+            String rotatedState = rotate(canonicalState);
+            if (rotatedState.equals(originalState)) {
+                bestMove = rotateMove(bestMove);
+                canonicalState = rotatedState;
+                continue;
+            }
+
+            // Horizontale Spiegelung prüfen
+            String mirroredHorizontalState = mirrorHorizontal(canonicalState);
+            if (mirroredHorizontalState.equals(originalState)) {
+                bestMove = mirrorHorizontalMove(bestMove);
+                canonicalState = mirroredHorizontalState;
+                continue;
+            }
+
+            // Vertikale Spiegelung prüfen
+            String mirroredVerticalState = mirrorVertical(canonicalState);
+            if (mirroredVerticalState.equals(originalState)) {
+                bestMove = mirrorVerticalMove(bestMove);
+                canonicalState = mirroredVerticalState;
+                continue;
+            }
+
+            // Wenn keine Transformation passt, Ausnahme werfen
+            throw new IllegalStateException("OriginalState konnte nicht durch Transformation erreicht werden.");
+        }
+        return bestMove;
+    }
+
+
+    // Rückwärts-Transformationen für bestMove
+
+    // im Uhrzeigersinn
+    public static int rotateMove(int move) {
+        int[] reverseMapping = {6, 3, 0, 7, 4, 1, 8, 5, 2};
+        return reverseMapping[move];
+    }
+
+    public static int mirrorHorizontalMove(int move) {
+        int[] reverseMapping = {6, 7, 8, 3, 4, 5, 0, 1, 2};
+        return reverseMapping[move];
+    }
+
+    public static int mirrorVerticalMove(int move) {
+        int[] reverseMapping = {2, 1, 0, 5, 4, 3, 8, 7, 6};
+        return reverseMapping[move];
     }
 }

@@ -113,12 +113,6 @@ public class GameController {
         // Spielfeld in der GUI aktualisieren
         view.renderBoard(board);
 
-        /*try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }*/
-
         // Prüfen, ob der aktuelle Spieler gewonnen hat
         if (board.checkWin(currentPlayer.getSymbol())) {
             view.displayMessage("Spieler " + currentPlayer.getName() + " hat gewonnen!");
@@ -236,6 +230,7 @@ public class GameController {
 
     public void clearLearningProgress() {
         try {
+            // schreibe leere Q-Tabelle in die CSV-Datei
             QTableHandler.saveQTable(new HashMap<>(), "qtable.csv");
             view.displayMessage("Lernfortschritt erfolgreich gelöscht.");
         } catch (Exception e) {
