@@ -30,14 +30,18 @@ public class TicTacToeAI {
      * @return Die Position (0-8) für den nächsten Zug.
      */
     public int getMove(String state) {
-        if (!qTable.containsKey(state)) {     // existiert noch kein Eintrag zum entsprechenden Board-State?
-            qTable.put(state, new double[9]); // Initialisierung aller Züge
+
+        // Kanonischen Zustand berechnen
+        String canonicalState = Transformations.getCanonicalState(state);
+
+        if (!qTable.containsKey(canonicalState)) {     // existiert noch kein Eintrag zum entsprechenden Board-State?
+            qTable.put(canonicalState, new double[9]); // Initialisierung aller Züge
         }
 
         if (random.nextDouble() < explorationRate) {    // random.nextDouble() -> Zufallswert zwischen 0 und 1
             return random.nextInt(9); // Zufälliger Zug
         } else {
-            double[] qValues = qTable.get(state);
+            double[] qValues = qTable.get(canonicalState);
             List<Integer> validMoves = new Vector<>();
 
             // alle gültigen Züge sammeln

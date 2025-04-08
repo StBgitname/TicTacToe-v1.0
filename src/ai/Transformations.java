@@ -84,7 +84,7 @@ public class Transformations {
             // Zustand um 90° rotieren, um zur nächsten Drehung zu kommen.
             currentState = rotate(currentState);
         }
-
+//        System.out.println("Transformations: " + transformations);
         return transformations;
     }
 

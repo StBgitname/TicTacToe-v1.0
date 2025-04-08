@@ -79,6 +79,9 @@ public class GameController {
 
         // Zustand des Spielfelds abrufen
         String state = board.getState();
+
+        System.out.println("Canonical State: [" +  Transformations.getCanonicalState(state) + "]");
+
         boolean legalMove;
         int move;
 
