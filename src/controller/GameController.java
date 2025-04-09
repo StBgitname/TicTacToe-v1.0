@@ -224,6 +224,8 @@ public class GameController {
         try {
             // schreibe leere Q-Tabelle in die CSV-Datei
             QTableHandler.saveQTable(new HashMap<>(), "qtable.csv");
+            // Lade die leere Q-Tabelle in der KI
+            ai.loadQTable("qtable.csv");
             view.displayMessage("Lernfortschritt erfolgreich gelöscht.");
         } catch (Exception e) {
             view.displayMessage("Fehler beim Löschen des Lernfortschritts: " + e.getMessage());
