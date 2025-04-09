@@ -80,15 +80,13 @@ public class GameController {
         // Zustand des Spielfelds abrufen
         String state = board.getState();
 
-        System.out.println("Canonical State: [" +  Transformations.getCanonicalState(state) + "]");
-
         boolean legalMove;
         int move;
 
         do {
             // KI berechnet ihren nächsten Zug
             move = ai.getMove(state);
-            //move = trainer.getMove(state);   //Test, um gegen TrainingsAI zu spielen
+            //move = trainer.getMove(state);   //Test, um als Mensch gegen TrainingsAI zu spielen
             int row = move / 3;
             int col = move % 3;
 
@@ -96,10 +94,15 @@ public class GameController {
             legalMove = board.makeMove(row, col, currentPlayer.getSymbol());
         } while (!legalMove);   // wiederholen, bis der Zug gültig ist
 
+        // Kanonischen Zustand und entsprechenden Zug speichern
+        String canonicalState = Transformations.getCanonicalState(state);
+        int canonicalMove = Transformations.transformToOriginalState(state, canonicalState, move);
+        stateHistory.add(canonicalState);
+        moveHistory.add(canonicalMove);
 
         // Speichern des Zustands und des Zuges
-        stateHistory.add(state);
-        moveHistory.add(move);
+//        stateHistory.add(state);
+//        moveHistory.add(move);
         //System.out.println("AI move: " + move);
 
         // Spielfeld in der GUI aktualisieren
@@ -126,7 +129,7 @@ public class GameController {
         if (board.isFull()) {
             view.displayMessage("Unentschieden! Niemand gewinnt.");
             wins[2]++;
-            ai.propagateRewards(0.2, stateHistory, moveHistory); // leichte Belohnung
+            ai.propagateRewards(0.5, stateHistory, moveHistory); // leichte Belohnung
             endGame();
             return;
         }
@@ -163,8 +166,8 @@ public class GameController {
         // Q-Tabelle speichern (falls verwendet)
         ai.saveQTable("qtable.csv");
 
-        //System.out.println("moveHistory: " + moveHistory);
-        //System.out.println("stateHistory: " + stateHistory);
+//        System.out.println("moveHistory: " + moveHistory);
+//        System.out.println("stateHistory: " + stateHistory);
     }
 
     public void trainAI(int numGames) {

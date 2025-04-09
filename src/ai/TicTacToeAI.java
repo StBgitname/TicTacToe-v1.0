@@ -34,7 +34,6 @@ public class TicTacToeAI {
         // Kanonischen Zustand berechnen
         String canonicalState = Transformations.getCanonicalState(state);
         int bestMove;
-        Transformations transformations = new Transformations();
 
         if (!qTable.containsKey(canonicalState)) {     // existiert noch kein Eintrag zum entsprechenden Board-State?
             qTable.put(canonicalState, new double[9]); // Initialisierung aller Züge
@@ -48,7 +47,7 @@ public class TicTacToeAI {
 
             // alle gültigen Züge sammeln
             for (int i = 0; i < qValues.length; i++) {
-                if (state.charAt(i) == ' ') {
+                if (canonicalState.charAt(i) == ' ') {
                     validMoves.add(i);
                 }
             }
@@ -65,7 +64,7 @@ public class TicTacToeAI {
         }
 
         // Transformiere den canonicalState iterativ zurück zum ursprünglichen state
-        return transformations.transformToOriginalState(canonicalState, state, bestMove);
+        return Transformations.transformToOriginalState(canonicalState, state, bestMove);
     }
 
     /**

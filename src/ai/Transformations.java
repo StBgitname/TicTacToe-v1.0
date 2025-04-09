@@ -5,7 +5,7 @@ import java.util.*;
 public class Transformations {
 
     /**
-     * Führt eine Rotation des Tic Tac Toe Spiels um 90 Grad durch. (gegen den Uhrzeigersinn)
+     * Führt eine Rotation des Tic Tac Toe Spiels um 90 Grad durch. (im Uhrzeigersinn)
      *
      * @param state Der aktuelle Zustand des Spielfelds als String.
      * @return Der Zustand nach der Rotation.
@@ -122,45 +122,36 @@ public class Transformations {
     }
 
     // Transformation des canonicalState zurück zum ursprünglichen state
-    public int transformToOriginalState(String canonicalState, String originalState, int bestMove) {
-        //TODO: Überprüfen!!!!!!
+    public static int transformToOriginalState(String canonicalState, String originalState, int bestMove) {
+
         while (!canonicalState.equals(originalState)) {
-            // Rotation prüfen
-            String rotatedState = rotate(canonicalState);
-            if (rotatedState.equals(originalState)) {
-                bestMove = rotateMove(bestMove);
-                canonicalState = rotatedState;
-                continue;
-            }
 
-            // Horizontale Spiegelung prüfen
-            String mirroredHorizontalState = mirrorHorizontal(canonicalState);
-            if (mirroredHorizontalState.equals(originalState)) {
+            // horizontale Spiegelung testen
+            String mirroredHorizontal = mirrorHorizontal(canonicalState);
+            if (mirroredHorizontal.equals(originalState)) {
                 bestMove = mirrorHorizontalMove(bestMove);
-                canonicalState = mirroredHorizontalState;
-                continue;
+                break;
             }
 
-            // Vertikale Spiegelung prüfen
-            String mirroredVerticalState = mirrorVertical(canonicalState);
-            if (mirroredVerticalState.equals(originalState)) {
+            // vertikale Spiegelung testen
+            String mirroredVertical = mirrorVertical(canonicalState);
+            if (mirroredVertical.equals(originalState)) {
                 bestMove = mirrorVerticalMove(bestMove);
-                canonicalState = mirroredVerticalState;
-                continue;
+                break;
             }
 
-            // Wenn keine Transformation passt, Ausnahme werfen
-            throw new IllegalStateException("OriginalState konnte nicht durch Transformation erreicht werden.");
+            // Rotation durchführen
+            canonicalState = rotate(canonicalState);
+            bestMove = rotateMove(bestMove);
         }
         return bestMove;
     }
 
 
-    // Rückwärts-Transformationen für bestMove
+    // Transformationen für bestMove
 
-    // im Uhrzeigersinn
     public static int rotateMove(int move) {
-        int[] reverseMapping = {6, 3, 0, 7, 4, 1, 8, 5, 2};
+        int[] reverseMapping = {2, 5, 8, 1, 4, 7, 0, 3, 6};
         return reverseMapping[move];
     }
 
