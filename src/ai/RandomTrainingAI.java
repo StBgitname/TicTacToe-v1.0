@@ -23,9 +23,4 @@ public class RandomTrainingAI implements TrainingAI{
 
         return move;
     }
-
-    @Override
-    public void loadQTable(String s) {
-
-    }
 }

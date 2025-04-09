@@ -9,8 +9,6 @@ import view.GameViewGUI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Scanner;
-import java.util.function.ToDoubleBiFunction;
 
 /**
  * Steuert den Spielablauf von Tic Tac Toe.
@@ -100,11 +98,6 @@ public class GameController {
         stateHistory.add(canonicalState);
         moveHistory.add(canonicalMove);
 
-        // Speichern des Zustands und des Zuges
-//        stateHistory.add(state);
-//        moveHistory.add(move);
-        //System.out.println("AI move: " + move);
-
         // Spielfeld in der GUI aktualisieren
         processMove();
     }
@@ -178,10 +171,6 @@ public class GameController {
         } else {
             this.trainer = new PerfectTrainingAI('X', 'O');
         }
-        //this.trainer = new AdvancedTrainingAI();
-        //if (trainer.getClass().getName().equals("ai.AdvancedTrainingAI")){
-        //    trainer.loadQTable("qtable.csv");
-        //}
 
         int move;
 

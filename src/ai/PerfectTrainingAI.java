@@ -21,11 +21,6 @@ public class PerfectTrainingAI implements TrainingAI {
         return findBestMove(state);
     }
 
-    @Override
-    public void loadQTable(String s) {
-        // No Q-table required
-    }
-
     // Finds the best move for the AI
     private int findBestMove(String state) {
 

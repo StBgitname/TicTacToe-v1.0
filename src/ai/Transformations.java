@@ -89,26 +89,6 @@ public class Transformations {
     }
 
     /**
-     * Überprüft, ob der gegebene Zustand in der Q-Tabelle (unter Berücksichtigung von Transformationen) existiert.
-     *
-     * @param state   Der aktuelle Zustand des Spielfeldes.
-     * @param qTable  Die Q-Tabelle mit gespeicherten Zuständen und Q-Werten.
-     * @return True, wenn der Zustand oder einer seiner Transformationen in der Q-Tabelle ist, sonst False.
-     */
-    public static boolean isStateInQTable(String state, Map<String, double[]> qTable) {
-        Set<String> transformations = getAllTransformations(state);
-
-        // Prüfe, ob eine der Transformationen in der Q-Tabelle existiert
-        for (String transformedState : transformations) {
-            if (qTable.containsKey(transformedState)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
      * Gibt den kanonischen Zustand des Spielfeldes zurück (d. h. den Zustand, der alle Transformationen repräsentiert).
      *
      * @param state Der aktuelle Zustand des Spielfeldes.
